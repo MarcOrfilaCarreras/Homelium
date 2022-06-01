@@ -9,7 +9,12 @@
         <form action="{{ url_for('add') }}" enctype="multipart/form-data" method="post">
             <div class="app">
                 <img src="static/img/groups.png" class="app-img">
-                <input class="add-input" type="text" placeholder="Group" name="group">
+                <input class="add-input" type="text" placeholder="Group" name="group" list="groups">
+                <datalist id="groups">
+                    {% for group in links_dict %}
+                        <option value="{{ group['name'] }}"></option>
+                    {% endfor %}
+                </datalist>
             </div>
             <div class="app">
                 <img src="static/img/default.png" class="app-img">
@@ -17,7 +22,14 @@
             </div>
             <div class="app">
                 <img src="static/img/image.png" class="app-img">
-                <input class="add-input" type="text" placeholder="Image" name="image">
+                <input class="add-input" type="text" placeholder="Image" name="image" list="images">
+                <datalist id="images">
+                    {% for group in links_dict %}
+                        {% for app in group["apps"] %}
+                            <option value="{{ app['image'] }}"></option>
+                        {% endfor %}
+                    {% endfor %}
+                </datalist>
             </div>
             <div class="app">
                 <img src="static/img/url.png" class="app-img">
